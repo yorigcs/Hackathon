@@ -11,7 +11,7 @@ function RegisterPage(){
       <Main margin_top={'50'}>
        <Logo size={'300'} />
         <InputsRegister />
-        <Link to="/">
+        <Link to="/signIn">
           <ButtonOnlyWords>Já possui cadastro? Faça login!</ButtonOnlyWords>
         </Link>
       </Main>

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Home from '../screens/Home/Home';
-import SignUp from '../screens/Login_Page/LoginPage';
-import SignIn from '../screens/Register_Page/RegisterPage';
+import SignIn from '../screens/Login_Page/LoginPage';
+import SignUp from '../screens/Register_Page/RegisterPage';
 import DashBoard from '../screens/Dashboard/Dashboard';
 
 

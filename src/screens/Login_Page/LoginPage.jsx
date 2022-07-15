@@ -9,7 +9,7 @@ export default function LoginPage(){
     <Logo  size={'300'}/>
     <InputsLogin />
     <Link to="/signUp">
-      <ButtonOnlyWords>Já possui cadastro? Faça login!</ButtonOnlyWords>
+      <ButtonOnlyWords>Não possui cadastro? Cadastre-se!</ButtonOnlyWords>
     </Link>
   </Main>
 )

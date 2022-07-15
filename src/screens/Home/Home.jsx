@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import backgroundCover from '../../assets/images/background-cover.png'
-import logo from '../../assets/images/logo-no-background.png';
+import logo from '../../assets/images/logo.png';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
