@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
-    const [userInfo, setUserInfo] = useState({user: "teste"}) //useState(null);
+    const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
         const storagedUser = localStorage.getItem("CNAuthUser");
@@ -18,19 +18,14 @@ export const AuthProvider = ({ children }) => {
         }
     }, [])
 
-    const signIn = async (signInData) => {  
-        try {
-            const { data } = await api.post("/signin", signInData);
-            setUserInfo(data.user);
-            api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
-            localStorage.setItem("CNAuthUser",JSON.stringify(data.user));
-            localStorage.setItem("CNAuthToken", data.token);
-            navigate("/dashboard")
-    
-        } catch (err) {
-           console.log(err)
-        }
-    
+    const signIn = (signInData) => {
+        
+        setUserInfo(signInData.user);
+        api.defaults.headers["Authorization"] = `Bearer ${signInData.token}`;
+        localStorage.setItem("CNAuthUser", JSON.stringify(signInData.user));
+        localStorage.setItem("CNAuthToken", signInData.token);
+        navigate("/dashboard")
+
     }
 
     const signOut = () => {
