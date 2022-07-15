@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     border: 0;
     font-size: 100%;
+    font-family: 'Reem Kufi', sans-serif;
     font: inherit;
     vertical-align: baseline;
   }
@@ -50,6 +51,7 @@ const GlobalStyles = createGlobalStyle`
   }
   a {
     text-decoration: none;
+    font-family: 'Reem Kufi', sans-serif;
   }
 
 ` 
