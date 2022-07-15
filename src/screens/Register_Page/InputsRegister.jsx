@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
 //import react
 
 import Loading from '../../shared/Loading';
@@ -21,10 +20,11 @@ export default function InputsRegister() {
   const [inputPassword, setInputPassword] = useState('');
   const [inputConfirmPassword, setInputConfirmPassword] = useState('');
 
-  const [objNewRegister, setObjNewRegister] = useState({
+  const [signUpData, setSignUpData] = useState({
     email: '',
     name: '',
-    password: ''
+    password: '',
+    confirmPw: ''
   });
 
 
@@ -40,26 +40,42 @@ export default function InputsRegister() {
       return;
     }
     setStateButton('loading');
+    
     // ===
-    objNewRegister.email = inputEmail;
-    objNewRegister.name = inputName;
-    objNewRegister.password = inputPassword;
+    signUpData.email = inputEmail;
+    signUpData.name = inputName;
+    signUpData.password = inputPassword;
+    signUpData.confirmPw = inputConfirmPassword;
     // ===
 
-    setObjNewRegister({ ...objNewRegister });
+    setSignUpData({ ...signUpData });
 
-    const promise = api.post('/signUp',objNewRegister);
-
+    const promise = api.post('/signUp',signUpData);
+    console.log(signUpData)
     promise.then(() => {
       navigate('../', { replace: true });
     });
     promise.catch(err => {
-      setStateButton('err');
+  
+     const statusCode = err.response.status
+      if(statusCode === 400){
+        setStateButton('Err400');
+        setInputEmail('');
+        setInputName('');
+        setInputPassword('');
+        setInputConfirmPassword('');
+      }else if(statusCode === 422){
+        setStateButton('Err422');
+        setInputEmail('');
+        setInputName('');
+        setInputPassword('');
+        setInputConfirmPassword('');
+      } else {
+        setStateButton('Err500');
+      }
+
+
     });
-    setInputEmail('');
-    setInputName('');
-    setInputPassword('');
-    setInputConfirmPassword('');
   }
 
   if (
@@ -77,6 +93,8 @@ export default function InputsRegister() {
           type="text"
           value={inputName}
           onChange={e => setInputName(e.target.value)}
+          minLength = {4}
+          maxLength = {20}
          
           
         />
@@ -92,35 +110,37 @@ export default function InputsRegister() {
           type="password"
           value={inputPassword}
           onChange={e => setInputPassword(e.target.value)}
-          pattern = "[A-Za-z]{3}"
-          
+          pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          title={'Ex: Hipotenus@24'}
         />
         <InputDefault
           placeholder="Confirme a senha"
           type="password"
           value={inputConfirmPassword}
           onChange={e => setInputConfirmPassword(e.target.value)}
-          pattern = "[A-Za-z]{3}"
+          pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
           
         />
         <ButtonSubmit
           width={'303px'}
           backgroundcolor={
-            stateButton === 'err'
-              ? '#d4d4d4'
+            stateButton === 'habilitado'
+              ? '#91BFBC'
               : stateButton === 'loading'
-              ? '#8a8893'
-              : stateButton === 'passwordNoEquals'
-              ? '#8a8893'
-              : '#91BFBC'
+              ? '#91BFBC'
+              : '#8a8893'
           }
         >
-          {stateButton === 'err' ? (
-            'Usuário já cadastrado!'
-          ) : stateButton === 'loading' ? (
+          {stateButton === 'loading' ? (
             <Loading height={20} width={20} />
           ) : stateButton === 'passwordNoEquals' ? (
             'Senhas diferentes'
+          ) : stateButton === 'Err400' ? (
+            'Usuário já cadastrado!'
+          ) : stateButton === 'Err422' ? (
+            'Dados inválidos!'
+          ): stateButton === 'Err500' ? (
+            'Erro do servidor!'
           ) : (
             'Cadastrar'
           )}
