@@ -23,8 +23,8 @@ export const AuthProvider = ({ children }) => {
             const { data } = await api.post("/signin", signInData);
             setUserInfo(data.user);
             axiosI.defaults.headers["Authorization"] = `Bearer ${data.token}`;
-            localStorage.setItem("TBAuthUser",JSON.stringify(data.user));
-            localStorage.setItem("TBAuthToken", data.token);
+            localStorage.setItem("CNAuthUser",JSON.stringify(data.user));
+            localStorage.setItem("CNAuthToken", data.token);
             navigate("/dashboard")
     
         } catch (err) {
@@ -36,8 +36,8 @@ export const AuthProvider = ({ children }) => {
     const signOut = () => {
         navigate("/")
         setUserInfo(null);
-        localStorage.removeItem("TBAuthUser");
-        localStorage.removeItem("TBAuthToken");
+        localStorage.removeItem("CNAuthUser");
+        localStorage.removeItem("CNAuthToken");
 
     }
 
