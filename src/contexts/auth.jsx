@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
         if (storagedUser && storagedToken) {
             //set header authorization if user is authenticated!
-            axiosI.defaults.headers["Authorization"] = `Bearer ${storagedToken}`
+            api.defaults.headers["Authorization"] = `Bearer ${storagedToken}`
             setUserInfo(JSON.parse(storagedUser));
         }
     }, [])
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const { data } = await api.post("/signin", signInData);
             setUserInfo(data.user);
-            axiosI.defaults.headers["Authorization"] = `Bearer ${data.token}`;
+            api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
             localStorage.setItem("CNAuthUser",JSON.stringify(data.user));
             localStorage.setItem("CNAuthToken", data.token);
             navigate("/dashboard")
