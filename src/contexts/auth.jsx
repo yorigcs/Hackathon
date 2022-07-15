@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
-    const [userInfo, setUserInfo] = useState(null);
+    const [userInfo, setUserInfo] = useState({user: "teste"}) //useState(null);
 
     useEffect(() => {
         const storagedUser = localStorage.getItem("CNAuthUser");

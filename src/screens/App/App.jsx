@@ -1,28 +1,22 @@
 
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import GlobalStyles from '../../assets/globalStyles/globalStyles';
-import RegisterPage from '../Register_Page/RegisterPage';
-import LoginPage from '../Login_Page/LoginPage';
-//import react
-
+import Route from '../../routes';
+import { AuthProvider } from '../../contexts/auth'
 
 function App() {
 
   return (
-    <>
-    <GlobalStyles/>
-     <BrowserRouter>
-       <Routes>
-          <Route path='/' element ={<LoginPage/>} />
-          <Route path='/signUp' element ={<RegisterPage/>} />
-        </Routes>
-     </BrowserRouter>
-    </>
-  
+    <BrowserRouter>
+      <GlobalStyles />
+      <AuthProvider>
+        <Route />
+      </AuthProvider>
+    </BrowserRouter>
 
-   
+
+
   )
 }
 
