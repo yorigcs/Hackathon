@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-function InputDefault ({placeholder, type, value, onChange, pattern}){
+function InputDefault ({placeholder, type, value, onChange, pattern, title, minLength, maxLength}){
   return (
   <InputClass
           placeholder={placeholder}
@@ -10,6 +10,9 @@ function InputDefault ({placeholder, type, value, onChange, pattern}){
           onChange={onChange}
           pattern ={pattern}
           required
+          title={title}
+          minLength = {minLength}
+          maxLength ={maxLength}
         />
   )
 }
