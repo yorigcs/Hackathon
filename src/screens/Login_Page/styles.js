@@ -8,7 +8,7 @@ export const ContainerFormClass = styled.div`
   width: 100%;
 
   form {
-    margin-top: 20px;
+    margin-top: 140px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
