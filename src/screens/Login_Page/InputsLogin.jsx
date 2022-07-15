@@ -14,41 +14,30 @@ import InputDefault from '../../shared/InputDefault';
 import {ContainerFormClass} from './styles'
 //import styles
 
-export default function InputsRegister() {
+function InputsLogin() {
 
   const navigate = useNavigate();
 
   const [inputEmail, setInputEmail] = useState('');
-  const [inputName, setInputName] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-  const [inputConfirmPassword, setInputConfirmPassword] = useState('');
 
   const [signUpData, setSignUpData] = useState({
     email: '',
-    name: '',
     password: '',
-    confirmPw: ''
   });
 
 
 
   const [stateButton, setStateButton] = useState('habilitado');
 
-  function newRegister(event) {
+  function Login(event) {
     event.preventDefault();
 
-    if (inputConfirmPassword !== inputPassword) {
-      setInputConfirmPassword('');
-      setStateButton('passwordNoEquals');
-      return;
-    }
     setStateButton('loading');
     
     // ===
     signUpData.email = inputEmail;
-    signUpData.name = inputName;
     signUpData.password = inputPassword;
-    signUpData.confirmPw = inputConfirmPassword;
     // ===
 
     setSignUpData({ ...signUpData });
@@ -60,44 +49,26 @@ export default function InputsRegister() {
     promise.catch(err => {
   
      const statusCode = err.response.status
-      if(statusCode === 400){
-        setStateButton('Err400');
-        setInputEmail('');
-        setInputName('');
-        setInputPassword('');
-        setInputConfirmPassword('');
-      }else if(statusCode === 422){
+    if(statusCode === 422){
         setStateButton('Err422');
         setInputEmail('');
-        setInputName('');
         setInputPassword('');
-        setInputConfirmPassword('');
       } else {
         setStateButton('Err500');
       }
-
-
     });
   }
 
   if (
-    (stateButton === 'err' && inputEmail.length > 0) ||
-    (stateButton === 'passwordNoEquals' && inputConfirmPassword.length > 0)
+    ((stateButton === 'Err422' || stateButton === 'Err500')  && inputEmail.length > 0)
   ) {
     setStateButton('habilitado');
   }
 
   return (
     <ContainerFormClass>
-      <form onSubmit={newRegister}>
-        <InputDefault
-          placeholder="nome"
-          type="text"
-          value={inputName}
-          onChange={e => setInputName(e.target.value)}
-          minLength = {4}
-          maxLength = {20}
-        />
+      <form onSubmit={Login}>
+     
         <InputDefault
           placeholder="E-mail"
           type="email"
@@ -112,36 +83,25 @@ export default function InputsRegister() {
           pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
           title={'Ex: Hipotenus@24'}
         />
-        <InputDefault
-          placeholder="Confirme a senha"
-          type="password"
-          value={inputConfirmPassword}
-          onChange={e => setInputConfirmPassword(e.target.value)}
-          pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-          
-        />
+     
         <ButtonSubmit
           width={'303px'}
           backgroundcolor={
             stateButton === 'habilitado'
               ? '#91BFBC'
               : stateButton === 'loading'
-              ? '#91BFBC'
-              : '#8a8893'
+              ? '#b5c9c8'
+              : '#dbdbdb'
           }
         >
           {stateButton === 'loading' ? (
             <Loading height={20} width={20} />
-          ) : stateButton === 'passwordNoEquals' ? (
-            'Senhas diferentes'
-          ) : stateButton === 'Err400' ? (
-            'Usuário já cadastrado!'
-          ) : stateButton === 'Err422' ? (
-            'Dados inválidos!'
+          )  : stateButton === 'Err422' ? (
+            'Senha ou email incorretos!'
           ): stateButton === 'Err500' ? (
-            'Falha ao cadastrar!'
+            'Falha ao fazer login!'
           ) : (
-            'Cadastrar'
+            'Entrar'
           )}
         </ButtonSubmit>
       </form>
@@ -149,3 +109,4 @@ export default function InputsRegister() {
   );
 }
 
+export default InputsLogin;
