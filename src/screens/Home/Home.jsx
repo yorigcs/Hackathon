@@ -7,10 +7,12 @@ const Home = () => {
     return(
     <Container>
         <img src={backgroundCover} className='background' />
-        <img src={logo} />
         <div>
-            <button> <Link to="/signIn" >Login</Link> </button>
-            <button> <Link to="/signUp" >Se inscrever</Link> </button>
+            <img src={logo} />
+            <Buttons>
+                <span> <Link to="/signIn" >Login</Link> </span>
+                <span> <Link to="/signUp" >Se inscrever</Link> </span>
+            </Buttons>
         </div>
     </Container>)
 }
@@ -18,11 +20,17 @@ const Home = () => {
 export default Home;
 
 const Container = styled.div`
-width:100%;
-display:flex;
-align-items:center;
-justify-content:center;
-height:100vh;
+>div{
+    z-index:2;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+}
 
 .background {
     width:100%;
@@ -34,24 +42,36 @@ height:100vh;
 img {
     height:40%;
 }
-div {
-    padding:0 40px;
-}
-button {
+
+`
+
+const Buttons = styled.div`
+padding:0 100px;
+display:flex;
+flex-direction:column;
+
+span {
     width:500px;
-    height:80px;
+    height:70px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     margin:20px;
     box-sizing:border-box;
-    border:none;
+    border-radius:5px;
     font-size:25px;
     font-weight:bold;
 }
-button:first-child{
-    background-color:#91BFBC;
-    color:#41635E;
+span:first-child{
+    background-color:rgba(145, 191, 188, 1);
+    a{
+        color:#41635E;
+    }
 }
-button:last-child{
-    background-color:#6B8C83;
-    color:#D2DCD3;
+span:last-child{
+    background-color:rgba(107, 140, 131, 1);
+    a{
+        color:#D2DCD3;
+    }
 }
 `
