@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     return(
     <Container>
-        <img src={backgroundCover} className='background' />
+        <img src={backgroundCover} className='background' alt="" />
         <div>
             <img src={logo} />
             <Buttons>
