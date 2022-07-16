@@ -1,15 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import Home from '../screens/Home/Home';
-import SignUp from '../screens/Login_Page/LoginPage';
-import SignIn from '../screens/Register_Page/RegisterPage';
+
 import DashBoard from '../screens/Dashboard/Dashboard';
+import RegisterPage from "../screens/Register_Page/RegisterPage";
+import LoginPage from "../screens/Login_Page/LoginPage";
+import AddCardPage from "../screens/Add_Card_Page/AddCardPage";
 
 
 const PrivateRoutes = () => (
     <Routes>
-       <Route path='/' element={<Home />}></Route>
-        <Route path='/signUp' element={<SignUp />}></Route>
-        <Route path='/signIn' element={<SignIn />}></Route>
+       <Route path='/' element={ <AddCardPage/> }/>
+        <Route path='/signUp' element={<RegisterPage />}></Route>
+        <Route path='/signIn' element={<LoginPage />}></Route>
         <Route path='/dashboard' element={<DashBoard />}></Route>
 
     </Routes>
